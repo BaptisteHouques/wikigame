@@ -10,7 +10,7 @@ def search(url=None):
     else:
         url="https://fr.wikipedia.org"+url
     req = Request(
-        url=url, 
+        url=url,
         headers={'User-Agent': 'Mozilla/5.0'}
     )
     webpage = urlopen(req).read()

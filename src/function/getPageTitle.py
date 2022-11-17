@@ -1,3 +1,4 @@
+# Fonction permettant la récupération du titre de la page renseignée
 def getPageTitle(page):
     title = page.find('h1', {"id": "firstHeading"})
     if not title: # Si l'élément recherché correspondant au titre de la page n'existe pas, on cherche son remplaçant
