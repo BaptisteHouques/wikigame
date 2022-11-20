@@ -3,18 +3,21 @@ from tkinter import messagebox
 from function.search import search
 from function.getLinks import getLinks
 from function.getPageTitle import getPageTitle
+from widget.ToolTip import *
 
 class WikiGame:
-    
+
     def __init__(self, parent):
         self.properties(parent)
         self.widgets(parent)
 
+    # Définition des propriétés
     def properties(self, app):
         self.maxLinks = 15 # Nombre maximum de liens affichés
         self.historicalList = []
         self.stopCountdown = False
 
+    # Féfinition des widgets
     def widgets(self, app):
         self.label_title = Label(app, text="WikiGame", font=40).pack()
         # Création des labels des pages cible et actuelle
@@ -75,6 +78,9 @@ class WikiGame:
                 label.pack()
                 # Liaison d'un évènement click sur le label permettant le changement de page en renseignant l'url du lien cliqué
                 label.bind("<Button-1>", lambda event, link=lien['href']: self.changeUrl(link))
+                # Affichage du résumé de la page au survol
+
+                CreateToolTip(label, text = lien['href'])
                 compt += 1
                 # Affiche les options de pagination quand 20 liens (ou les derniers liens de la liste) ont été affichés
                 if compt == self.maxLinks or compt >= len(listLiens)-start:
@@ -149,6 +155,7 @@ wiki.label_cible.config(text="Cible : "+cible.text)
 # Création boite des liens & affichage de la page actuelle et de ses liens
 wiki.changeUrl("/wiki/Sp%C3%A9cial:Page_au_hasard")
         
+# Lancement du compte à rebours
 wiki.countdown()
 
 window.mainloop()
