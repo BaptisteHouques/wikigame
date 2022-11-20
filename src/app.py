@@ -8,7 +8,7 @@ from function.changeUrl import changeUrl
 # Création de la fenêtre
 window = Tk()
 window.title("Wikigame")
-window.geometry("800x550")
+window.geometry("800x500")
 window.minsize(600,400)
 window.iconbitmap("src/ressources/logo.ico")
 
@@ -27,8 +27,10 @@ label_actuel.pack()
 label_tour = Label(window, text="Tour : 0")
 label_tour.pack()
 
+Label(window, text="-"*30).pack()
+
 # Nombre maximum de liens affichés
-max = 20
+max = 15
 
 # Création boite des liens & affichage de la page actuelle et de ses liens
 frame_links = Frame(window)

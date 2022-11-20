@@ -20,13 +20,14 @@ def showLinks(listLiens, start, max, frame_links, label_actuel, label_tour, cibl
             compt += 1
             # Affiche les options de pagination quand 20 liens (ou les derniers liens de la liste) ont été affichés
             if compt == max or compt >= len(listLiens)-start:
+                Label(frame_links, text="-"*30).pack()
                 if len(listLiens) > compt and compt < len(listLiens)-start:
-                    label_plus = Label(frame_links, cursor="hand1", text="Page suivante")
+                    label_plus = Label(frame_links, cursor="hand1", text="Page suivante →")
                     label_plus.pack()
                     # Liaison d'un évènement click sur le label permettant l'affichage des liens suivants
                     label_plus.bind("<Button-1>", lambda e:changePage("+", listLiens, start, max, frame_links, label_actuel, label_tour, cible))
                 if start > max-1:
-                    label_moins = Label(frame_links, cursor="hand1", text="Page précédente")
+                    label_moins = Label(frame_links, cursor="hand1", text="← Page précédente")
                     label_moins.pack()
                     # Liaison d'un évènement click sur le label permettant l'affichage des liens précédents
                     label_moins.bind("<Button-1>", lambda e:changePage("-", listLiens, start, max, frame_links, label_actuel, label_tour, cible))
