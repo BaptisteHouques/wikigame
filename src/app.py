@@ -30,6 +30,8 @@ class WikiGame:
         self.firstLine = Label(app, text="-"*30).pack()
         self.frame_links = Frame(app)
         self.frame_links.pack()
+        self.buttonHistorical = Button(app)
+        self.frame_historical = Frame(app)
     
     # Fonction permettant le changement de la page actuelle et l'affichage des nouveaux liens
     def changeUrl(self, url):
@@ -46,7 +48,8 @@ class WikiGame:
             self.label_actuel.config(text="Actuellement : " + actuel.text) # Modification du label affichant la page actuelle
             # Affichage du message de félicitation
             Label(self.frame_links, text="Vous avez gagné en "+self.label_tour.cget("text")[-1]+" tours! Félicitations!").pack()
-            Button(self.frame_links, text="Afficher l'historique", command=self.showHistoricalList).pack()
+            self.changeButtonHistorical(True)
+            self.buttonHistorical.pack()
         else:
             listLiens = getLinks(pageActuelle)
             self.label_actuel.config(text="Actuellement : " + actuel.text) # Modification du label affichant la page actuelle
@@ -88,9 +91,25 @@ class WikiGame:
                         label_moins.bind("<Button-1>", lambda e:self.changePage("-", listLiens, start))
                     break
 
-    def showHistoricalList(self):
-        for item in self.historicalList:
-            Label(self.frame_links, text=item).pack()
+    # Fonction changeant l'état du boutton affichant ou cachant l'historique
+    def changeButtonHistorical(self, bool):
+        if bool == True:
+            self.buttonHistorical.config(text="Afficher l'historique", command=lambda : self.showHistoricalList(True))
+        else:
+            self.buttonHistorical.config(text="Cacher l'historique", command=lambda : self.showHistoricalList(False))
+
+    # Fonction permettant d'afficher ou de chacher de l'historique des pages visités
+    def showHistoricalList(self, bool):
+        if bool == True:
+            self.changeButtonHistorical(False)
+            self.frame_historical.pack()
+            for item in self.historicalList:
+                Label(self.frame_historical, text=item).pack()
+        else:
+            # Suppression de tous les labels
+            for child in self.frame_historical.winfo_children():
+                child.destroy()
+            self.changeButtonHistorical(True)
 
 
     # Fonction permettant l'affichage des liens suivants ou précédents de la liste renseignée
